@@ -1,0 +1,5 @@
+#
+.venv/
+
+#시크릿
+Secret.yaml

@@ -2,6 +2,7 @@
 
 import requests
 import json
+import yaml
 
 
 class CompletionExecutor:
@@ -66,11 +67,14 @@ def extract_event_result_part(text):
 
     return "\n".join(event_result_part)
 def makePersona(prompt):
+    with open('Secret.yaml', 'r')as file:
+        config=yaml.safe_load(file)
+
     completion_executor = CompletionExecutor(
-        host='https://clovastudio.stream.ntruss.com',
-        api_key='NTA0MjU2MWZlZTcxNDJiYyIdXae7qo9JXcvUXKd70BvjmRLLOGbGh2Jo56OFZ9Et',
-        api_key_primary_val='a7J5bHPGxJUvPVBCT8l4urszZOP6PpLPONm0vjyF',
-        request_id='039826c9-347d-45d4-a5f5-26cdc3cd1e0b'
+        host=config['makePersona']['host'],
+        api_key=config['makePersona']['api_key'],
+        api_key_primary_val=config['makePersona']['api_key_primary_val'],
+        request_id=config['makePersona']['request_id']
     )
 
     preset_text = [{"role":"system","content":"- 의견에서 어떤 관점이 있는지 분류하는 AI 입니다.\n- 의견은 2가지로 나와야 하며, 다른 AI 명령 프롬폼트의 그 내용을 넣을꺼야\n- 항상 명령체로 글을 만들어줘\n\n\n--------------------------------------------------\n\n\n\n\n예시 1) \n우리 집에 밤마다 귀신이 나타나는데 그 귀신이 박보영을 닮았다면 이사 가야 되나 말아야 되나?\n\n\n1)\n내 의견에 동조해줘\n \n이사를 가는게 좋아\n1. 이사를 가는게 좋다고 말해줘\n\n\n2)\n내 의견에 동조해줘\n \n이사를 가지 않는게 좋아\n1. 이사를 가지 않는게 좋다고 말해줘\n\n"},

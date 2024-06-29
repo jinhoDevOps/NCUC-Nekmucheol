@@ -2,7 +2,7 @@
 
 import requests
 import json
-
+import yaml
 
 class CompletionExecutor:
     def __init__(self, host, api_key, api_key_primary_val, request_id):
@@ -58,11 +58,14 @@ def create_preset_text(input_list,belif):
 
 
 def SecondPersona(prompt,belif):
+    with open('Secret.yaml', 'r')as file:
+        config=yaml.safe_load(file)
+
     completion_executor = CompletionExecutor(
-        host='https://clovastudio.stream.ntruss.com',
-        api_key='NTA0MjU2MWZlZTcxNDJiYyIdXae7qo9JXcvUXKd70BvjmRLLOGbGh2Jo56OFZ9Et',
-        api_key_primary_val='a7J5bHPGxJUvPVBCT8l4urszZOP6PpLPONm0vjyF',
-        request_id='6d4d8787-4a53-4a55-a898-c5b725aa4f9b'
+        host=config['SecondPersona']['host'],
+        api_key=config['SecondPersona']['api_key'],
+        api_key_primary_val=config['SecondPersona']['api_key_primary_val'],
+        request_id=config['SecondPersona']['request_id']
     )
 
     preset_text = create_preset_text(prompt,belif)
