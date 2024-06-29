@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04aa2115-d7a2-4e88-9532-40cbb7bbad35" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/NCUC-ClovaNekmucheol.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FirstPersona.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/SecondPersona.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/init.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/makePersona.py" afterDir="false" />
-    </list>
+    <list default="true" id="04aa2115-d7a2-4e88-9532-40cbb7bbad35" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,6 +18,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
@@ -44,7 +38,7 @@
   "keyToString": {
     "Python.init.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "C:/Users/jo220/PycharmProjects/NCUC-ClovaNekmucheol",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -108,7 +102,7 @@
       <updated>1719044817960</updated>
       <workItem from="1719044819360" duration="1561000" />
       <workItem from="1719187164049" duration="21000" />
-      <workItem from="1719628685606" duration="13812000" />
+      <workItem from="1719628685606" duration="14136000" />
     </task>
     <servers />
   </component>
