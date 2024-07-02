@@ -1,5 +1,6 @@
 #
 .venv/
+__pycache__
 
 #시크릿
 Secret.yaml
