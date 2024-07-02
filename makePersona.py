@@ -3,6 +3,8 @@
 import requests
 import json
 import yaml
+from flask import Flask, request, jsonify
+
 
 
 class CompletionExecutor:
@@ -45,13 +47,6 @@ class CompletionExecutor:
                 return list(parts)
 
         return None
-
-
-        # with requests.post(self._host + '/testapp/v1/chat-completions/HCX-DASH-001',
-        #                    headers=headers, json=completion_request, stream=True) as r:
-        #     for line in r.iter_lines():
-        #         if line:
-        #             print(line.decode("utf-8"))
 
 
 def extract_event_result_part(text):
