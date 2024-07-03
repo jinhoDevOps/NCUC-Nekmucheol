@@ -1,6 +1,6 @@
 ## 정상 동작하는 app.py 입니다.
 
-from flask import Flask, request, jsonify, render_template_string
+from flask import Flask, request, jsonify, render_template
 import requests
 
 from FirstPersona import FirstPersona
@@ -10,98 +10,9 @@ import hcx_dash
 
 app = Flask(__name__)
 
-
 @app.route("/")
 def index():
-    return render_template_string(
-        """
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>POST Request with Fetch</title>
-    </head>
-    <body>
-        <h1>Send POST Request</h1>
-        <form id="postForm">
-            <label for="question">Question:</label>
-            <textarea id="question" name="question"></textarea><br><br>
-            <input type="submit" value="Send POST Request">
-        </form>
-
-        <div id="response"></div>
-
-        <script>
-            document.getElementById('postForm').addEventListener('submit', function(event) {
-                event.preventDefault();
-                const question = document.getElementById('question').value;
-
-                // 입력 유효성 검증
-                if (!question.trim()) {
-                    const responseDiv = document.getElementById('response');
-                    responseDiv.innerHTML = '<h3>Error:</h3><p>Question cannot be empty.</p>';
-                    return;
-                }
-
-                // '/dash'로 POST 요청
-                fetch('/dash', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ question: question })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    const responseDiv = document.getElementById('response');
-                    if (data.status === 'success') {
-                        if (data.message.includes("적합합니다")) {
-                            // 성공 메시지를 표시하고, 3초 후에 '/run'으로 POST 요청
-                            responseDiv.innerHTML = '<h3>Success:</h3><p>' + data.message + '</p>';
-                            setTimeout(() => {
-                                // 데이터와 함께 '/run'으로 POST 요청
-                                fetch('/run', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json'
-                                    },
-                                    body: JSON.stringify({ question: question })
-                                })
-                                .then(response => response.json())
-                                .then(data => {
-                                    if (data.status === 'success') {
-                                        // 배열 확인 및 처리
-                                        const responseContent = Array.isArray(data.response) ? data.response.join('<br>') : data.response;
-                                        responseDiv.innerHTML = '<h3>Response:</h3><pre>' + responseContent + '</pre>';
-                                    } else {
-                                        responseDiv.innerHTML = '<h3>Error:</h3><p>' + data.message + '</p>';
-                                    }
-                                })
-                                .catch(error => {
-                                    console.error('Error fetching /run:', error);
-                                    responseDiv.innerHTML = '<h3>Error:</h3><p>Failed to fetch /run</p>';
-                                });
-                            }, 3000);  // 3초 후 '/run'으로 POST 요청
-                        } else {
-                            responseDiv.innerHTML = '<h3>Error:</h3><p>' + data.message + '</p>';
-                        }
-                    } else {
-                        responseDiv.innerHTML = '<h3>Error:</h3><p>' + data.message + '</p>';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching /dash:', error);
-                    const responseDiv = document.getElementById('response');
-                    responseDiv.innerHTML = '<h3>Error:</h3><p>Failed to fetch /dash</p>';
-                });
-            });
-        </script>
-    </body>
-    </html>
-    """
-    )
-
+    return render_template('index.html')
 
 @app.route("/dash", methods=["POST"])
 def dash_route():
@@ -133,7 +44,6 @@ def dash_route():
     else:
         return jsonify({"status": "error", "message": "Unexpected error occurred"}), 500
 
-
 @app.route("/run", methods=["POST"])
 def run():
     if not request.is_json:
@@ -152,7 +62,6 @@ def run():
         return jsonify({"status": "success", "response": output}), 200
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
-
 
 if __name__ == "__main__":
     app.run(debug=True)
