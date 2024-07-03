@@ -3,7 +3,7 @@
 
 # Demo
 
-![How_to_use](https://github.com/CrowdStrike/falcon-scripts/assets/54525036/e6e3075f-d397-4862-8b7f-ce0411d3e2b8)
+![How_to_use](https://github.com/Tekk-97/NCUC-Nekmucheol/assets/54525036/43ebba62-bc7a-402c-8739-5c938dbd5fd7)
 
 # Test guide:
 
