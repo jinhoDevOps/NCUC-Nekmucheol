@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POST Request with Fetch</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('{{ url_for('static', filename='images/back_ground.png') }}') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hyper CLOVA 𝐗 넼문철 - I TEAM 💚</h1>
+        <form id="postForm">
+            <label for="question">👨🏻‍⚖️ 아래 항목에 판결받고 싶은 상황을 기술해주세요 👩🏻‍⚖️</label>
+            <textarea id="question" name="question"></textarea><br><br>
+            <input type="submit" value="판결 요청하기 ">
+        </form>
+
+        <div id="response"></div>
+    </div>
+
+    <script>
+        document.getElementById('postForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const question = document.getElementById('question').value;
+
+            if (!question.trim()) {
+                const responseDiv = document.getElementById('response');
+                responseDiv.innerHTML = '<h3>Error:</h3><p>Question cannot be empty.</p>';
+                return;
+            }
+
+            fetch('/dash', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ question: question })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const responseDiv = document.getElementById('response');
+                if (data.status === 'success') {
+                    if (data.message.includes("적합합니다")) {
+                        responseDiv.innerHTML = '<h3>Success:</h3><p>' + data.message + '</p>';
+                        setTimeout(() => {
+                            fetch('/run', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ question: question })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.status === 'success') {
+                                    const responseContent = Array.isArray(data.response) ? data.response.join('<br>') : data.response;
+                                    responseDiv.innerHTML = '<h3>Response:</h3><pre>' + responseContent + '</pre>';
+                                } else {
+                                    responseDiv.innerHTML = '<h3>Error:</h3><p>' + data.message + '</p>';
+                                }
+                            })
+                            .catch(error => {
+                                console.error('Error fetching /run:', error);
+                                responseDiv.innerHTML = '<h3>Error:</h3><p>Failed to fetch /run</p>';
+                            });
+                        }, 3000);
+                    } else {
+                        responseDiv.innerHTML = '<h3>Error:</h3><p>' + data.message + '</p>';
+                    }
+                } else {
+                    responseDiv.innerHTML = '<h3>Error:</h3><p>' + data.message + '</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching /dash:', error);
+                const responseDiv = document.getElementById('response');
+                responseDiv.innerHTML = '<h3>Error:</h3><p>Failed to fetch /dash</p>';
+            });
+        });
+    </script>
+</body>
+</html>
